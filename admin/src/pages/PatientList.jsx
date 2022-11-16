@@ -5,35 +5,27 @@ import { DeleteOutline } from "@material-ui/icons";
 import { userRows } from "../dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import useFetch from '../hooks/useFetch'
+
 
 function PatientList() {
-  const [data, setData] = useState(userRows);
+  const { data, loading, reFetch } = useFetch(`/ver_usuarios`);
+  const [data2, setData2] = useState([])
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    setData2(data2.filter((item) => item.id !== id));
   };
-  
+
   const columns = [
     { field: "id", headerName: "ID", width: 30 },
     {
-      field: "user",
-      headerName: "Nombre",
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="userListUser">
-            <img className="userListImg" src={params.row.avatar} alt="" />
-            {params.row.username}
-          </div>
-        );
-      },
+      field: "nombre_usuario",
+      headerName: "Nombre de usuario",
+      width: 200
     },
-    { field: "email", headerName: "Email", width: 200 },
-    {
-      field: "status",
-      headerName: "Estado",
-      width: 100,
-    },
+    { field: "id_persona_fk", headerName: "Id persona", width: 200 },
+    { field: "id_area_fk", headerName: "Id Area", width: 200 },
+    { field: "contraseña", headerName: "Contraseña", width: 200 },
     {
       field: "action",
       headerName: "Action",
@@ -60,13 +52,19 @@ function PatientList() {
         <p>Nuevo usuario</p>
         <Link to='/newUser'>Crear</Link>
       </div>
-      <DataGrid
-        rows={data}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-      />
+      {
+        loading ? (
+          <p>Loading...</p>
+        ) : (
+          <DataGrid
+            rows={data}
+            disableSelectionOnClick
+            columns={columns}
+            pageSize={8}
+            checkboxSelection
+          />
+        )
+      }
     </div>
   );
 }

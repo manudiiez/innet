@@ -11,7 +11,7 @@ export const AuthContext = createContext(INITIAL_STATE);
 export const useAuth = () => {
     const context = useContext(AuthContext)
     return context
-}
+}   
 
 const AuthReducer = (state, action) => {
     switch (action.type) {

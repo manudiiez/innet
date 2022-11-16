@@ -1,8 +1,11 @@
 import React from 'react'
+import ItemFormContainer from '../../components/ItemFormContainer'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      <ItemFormContainer/>
+    </div>
   )
 }
 

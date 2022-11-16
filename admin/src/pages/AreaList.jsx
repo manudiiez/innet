@@ -4,22 +4,24 @@ import { DeleteOutline } from "@material-ui/icons";
 import { productRows } from "../dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import useFetch from '../hooks/useFetch'
+
 
 function AreaList() {
-    const [data, setData] = useState(productRows);
+    const { data, loading, reFetch } = useFetch(`/ver_areas`);
+
 
     const handleDelete = (id) => {
-        setData(data.filter((item) => item.id !== id));
+        // setData2(data2.filter((item) => item.id !== id));
     };
 
     const columns = [
         { field: "id", headerName: "ID", width: 30 },
         {
-            field: "name",
+            field: "nombre",
             headerName: "Nombre del area",
             width: 200
         },
-        { field: "stock", headerName: "Pacientes", width: 80 },
         {
             field: "action",
             headerName: "Action",
@@ -46,13 +48,19 @@ function AreaList() {
                 <p>Nueva area</p>
                 <Link to='/newArea'>Crear</Link>
             </div>
-            <DataGrid
-                rows={data}
-                disableSelectionOnClick
-                columns={columns}
-                pageSize={8}
-                checkboxSelection
-            />
+            {
+                loading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <DataGrid
+                        rows={data}
+                        disableSelectionOnClick
+                        columns={columns}
+                        pageSize={8}
+                        checkboxSelection
+                    />
+                )
+            }
         </div>
     );
 }

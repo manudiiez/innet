@@ -19,18 +19,18 @@ function App() {
       <Topbar />
       <div className="container">
         <Sidebar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/users" element={<UserList />} />
-          <Route path="/user/:userId" element={<User />} />
-          <Route path="/newUser" element={<NewUser />} />
-          <Route path="/areas" element={<AreaList />} />
-          <Route path="/area/:areaId" element={<Area />} />
-          <Route path="/newArea" element={<NewArea />} />
-          <Route path="/patient" element={<PatientList />} />
-          <Route path="/alerts" element={<AlertList />} />
-          <Route path="/alert/:alertId" element={<Alert />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/users" element={<UserList />} />
+            <Route path="/user/:userId" element={<User />} />
+            <Route path="/newUser" element={<NewUser />} />
+            <Route path="/areas" element={<AreaList />} />
+            <Route path="/area/:areaId" element={<Area />} />
+            <Route path="/newArea" element={<NewArea />} />
+            <Route path="/patient" element={<PatientList />} />
+            <Route path="/alerts" element={<AlertList />} />
+            <Route path="/alert/:alertId" element={<Alert />} />
+          </Routes>
       </div>
     </Router>
   );

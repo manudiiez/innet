@@ -40,13 +40,13 @@ function Sidebar() {
             <NavLink to="/users" className="link">
               <li className="sidebarListItem">
                 <LocalHospital className="sidebarIcon" />
-                <span>Medicos</span>
+                <span>Personas</span>
               </li>
             </NavLink>
             <NavLink to="/patient" className="link">
               <li className="sidebarListItem">
                 <PermIdentity className="sidebarIcon" />
-                <span>Pacientes</span>
+                <span>Usuarios</span>
               </li>
             </NavLink>
             <NavLink to="/areas" className="link">

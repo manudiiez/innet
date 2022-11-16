@@ -4,7 +4,7 @@ import '../css/page/newUser.css'
 function NewUser() {
   return (
     <div className="newUser">
-      <h1 className="newUserTitle">Usuario nuevo</h1>
+      <h1 className="newUserTitle">Persona nueva</h1>
       <form className="newUserForm">
         <div className="newUserItem">
           <label>Nombre y apellido</label>

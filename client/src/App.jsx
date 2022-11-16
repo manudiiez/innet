@@ -10,13 +10,24 @@ import {
 import { AuthContext } from "./context/AuthContext";
 import ItemSignInContainer from "./pages/credentials/ItemSignInContainer";
 import Home from "./pages/home/Home";
+import Patiente from "./pages/patient/Patiente";
 
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useContext(AuthContext)
 
   if (!user) {
-    return <Navigate to='/users' />
+    return <Navigate to='/login' />
+  }
+
+  return children
+}
+
+const ProtectedPriorityRoute = ({ children }) => {
+  const { user } = useContext(AuthContext)
+
+  if (!user || user.rol === 'patient') {
+    return <Navigate to='/patient' />
   }
 
   return children
@@ -27,11 +38,16 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/users" element={<ItemSignInContainer />}/>
+          <Route path="/login" element={<ItemSignInContainer />}/>
           <Route path="/">
             <Route index element={
-              <ProtectedRoute>
+              <ProtectedPriorityRoute>
                 <Home />
+              </ProtectedPriorityRoute>
+            } />
+            <Route path="/patient" element={
+              <ProtectedRoute>
+                <Patiente/>
               </ProtectedRoute>
             } />
           </Route>
