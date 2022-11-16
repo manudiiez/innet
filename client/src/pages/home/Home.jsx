@@ -1,11 +1,12 @@
 import React from 'react'
-import ItemFormContainer from '../../components/form/ItemFormContainer'
+import ItemNavbarContainer from '../../components/navbar/ItemNavbarContainer'
 
 const Home = () => {
   return (
-    <div>
-      <ItemFormContainer/>
-    </div>
+    <>
+      <ItemNavbarContainer/>
+      hola
+    </>
   )
 }
 
