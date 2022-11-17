@@ -4,27 +4,21 @@ const PersonSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      unique: true
     },
-    email: {
+    lastname: {
       type: String,
       required: true,
-      unique: true
     },
     dni: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
-    img: {
-      type: String,
-    },
-    category: {
-      type: String,
-      default: 'patient',
+    files: {
+      type: [String],
     },
   },
   { timestamps: true }
 );
 
 
-export default mongoose.model('Person', UserSchema)
+export default mongoose.model('Person', PersonSchema)

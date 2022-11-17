@@ -12,15 +12,20 @@ const UserSchema = new mongoose.Schema(
       unique: true
     },
     password: {
-        type: String,
-        required: true,
-    },
-    img: {
       type: String,
+      required: true,
     },
-    category: {
+    idPersona: {
       type: String,
-      default: 'patient',
+      required: true,
+    },
+    idArea: {
+      type: String,
+      required: true,
+    },
+    rol: {
+      type: String,
+      default: 'paciente'
     },
   },
   { timestamps: true }
