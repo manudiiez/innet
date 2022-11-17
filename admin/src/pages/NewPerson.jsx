@@ -1,7 +1,7 @@
-import '../css/page/newUser.css'
+import '../css/page/newPerson.css'
 
 
-function NewUser() {
+function NewPerson() {
   return (
     <div className="newUser">
       <h1 className="newUserTitle">Persona nueva</h1>
@@ -47,4 +47,4 @@ function NewUser() {
   );
 }
 
-export default NewUser;
+export default NewPerson;

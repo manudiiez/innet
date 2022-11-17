@@ -91,7 +91,8 @@ def userObj(row):
         "nombre_usuario" : row[1],
         "id_persona_fk": row[2],
         "id_area_fk": row[3],
-        "contraseña": row[4]
+        "contraseña": row[4],
+        "rol": row[5]
     }
 @app.route('/ver_usuarios')
 def ver_usuarios():

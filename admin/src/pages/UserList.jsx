@@ -1,17 +1,16 @@
 // import "./userList.css";
-import '../css/page/userList.css'
+import '../css/page/personList.css'
 import { DataGrid } from '@mui/x-data-grid';
 import { DeleteOutline } from "@material-ui/icons";
 import { userRows } from "../dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import useFetch from '../hooks/useFetch' 
+import useFetch from '../hooks/useFetch'
 
 
 function UserList() {
-  const [data2, setData2] = useState(userRows);
-  const { data, loading, reFetch } = useFetch(`/ver_personas`);
-  console.log(data)
+  const { data, loading, reFetch } = useFetch(`/ver_usuarios`);
+  const [data2, setData2] = useState([])
 
   const handleDelete = (id) => {
     setData2(data2.filter((item) => item.id !== id));
@@ -20,25 +19,14 @@ function UserList() {
   const columns = [
     { field: "id", headerName: "ID", width: 30 },
     {
-      field: "nombre_persona",
-      headerName: "Nombre",
+      field: "nombre_usuario",
+      headerName: "Nombre de usuario",
       width: 200
     },
-    {
-      field: "apellido_persona",
-      headerName: "Apellido",
-      width: 200
-    },
-    {
-      field: "dni_persona",
-      headerName: "N°DNI",
-      width: 200
-    },
-    {
-      field: "tipo_persona",
-      headerName: "Tipo",
-      width: 200
-    },
+    { field: "rol", headerName: "Rol", width: 80 },
+    { field: "id_persona_fk", headerName: "Id persona", width: 90 },
+    { field: "id_area_fk", headerName: "Id Area", width: 90 },
+    { field: "contraseña", headerName: "Contraseña", width: 200 },
     {
       field: "action",
       headerName: "Action",
@@ -62,7 +50,7 @@ function UserList() {
   return (
     <div className="userList">
       <div className="userBrand">
-        <p>Nueva persona</p>
+        <p>Nuevo usuario</p>
         <Link to='/newUser'>Crear</Link>
       </div>
       {

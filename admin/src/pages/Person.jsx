@@ -7,10 +7,10 @@ import {
     Publish,
   } from "@material-ui/icons";
   import { Link } from "react-router-dom";
-  import '../css/page/user.css'
+  import '../css/page/person.css'
 
   
-  function User() {
+  function Person() {
     return (
       <div className="user">
         <div className="userTitleContainer">
@@ -119,4 +119,4 @@ import {
     );
   }
 
-  export default User;
+  export default Person;

@@ -96,7 +96,7 @@ const Patiente = () => {
 export default Patiente
 
 const Container = styled.div`
-    height: 100vh;
+    height: fit-content;
     padding: 28px;
     display: flex;
     justify-content: center;
@@ -104,7 +104,7 @@ const Container = styled.div`
     box-sizing: border-box;
     button{
         width: 100%;
-        height: 50%;
+        height: 500px;
         background: #6150FF;
         border: none;
         border-radius: 10px;

@@ -8,7 +8,9 @@ import {
 } from "react-router-dom";
 /* -------------------------------- COONTEXT -------------------------------- */
 import { AuthContext } from "./context/AuthContext";
+import Alert from "./pages/alert/Alert";
 import ItemSignInContainer from "./pages/credentials/ItemSignInContainer";
+import File from "./pages/file/File";
 import Home from "./pages/home/Home";
 import Patiente from "./pages/patient/Patiente";
 
@@ -38,19 +40,28 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<ItemSignInContainer />}/>
-          <Route path="/">
-            <Route index element={
-              <ProtectedPriorityRoute>
-                <Home />
-              </ProtectedPriorityRoute>
-            } />
-            <Route path="/patient" element={
-              <ProtectedRoute>
-                <Patiente/>
-              </ProtectedRoute>
-            } />
-          </Route>
+          <Route path="/login" element={<ItemSignInContainer />} />
+          <Route path="/" element={
+            <ProtectedPriorityRoute>
+              <Home />
+            </ProtectedPriorityRoute>
+          } />
+          <Route path="/file/:id" element={
+            <ProtectedPriorityRoute>
+              <File />
+            </ProtectedPriorityRoute>
+          } />
+          <Route path="/patient" element={
+            <ProtectedRoute>
+              <Patiente />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/alert" element={
+            <ProtectedRoute>
+              <Alert />
+            </ProtectedRoute>
+          } />
         </Routes>
       </BrowserRouter>
     </>

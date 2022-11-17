@@ -37,13 +37,13 @@ function Sidebar() {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Listas</h3>
           <ul className="sidebarList">
-            <NavLink to="/users" className="link">
+            <NavLink to="/persons" className="link">
               <li className="sidebarListItem">
                 <LocalHospital className="sidebarIcon" />
                 <span>Personas</span>
               </li>
             </NavLink>
-            <NavLink to="/patient" className="link">
+            <NavLink to="/users" className="link">
               <li className="sidebarListItem">
                 <PermIdentity className="sidebarIcon" />
                 <span>Usuarios</span>

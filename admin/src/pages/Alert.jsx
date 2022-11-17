@@ -7,7 +7,7 @@ import {
     Publish,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import '../css/page/user.css'
+import '../css/page/person.css'
 
 
 function Alert() {

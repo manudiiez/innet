@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import '../css/page/product.css'
+import '../css/page/area.css'
 import Chart from '../components/Chart';
 import { productData } from "../dummyData";
 import {Publish} from '@material-ui/icons'
