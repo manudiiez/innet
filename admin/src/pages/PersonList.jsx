@@ -6,31 +6,35 @@ import { userRows } from "../dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import useFetch from '../hooks/useFetch' 
-
+import axios from 'axios'
 
 function PersonList() {
-  const [data2, setData2] = useState(userRows);
-  const { data, loading, reFetch } = useFetch(`/ver_personas`);
+  const { data, loading, reFetch } = useFetch(`/person`);
   console.log(data)
 
-  const handleDelete = (id) => {
-    setData2(data2.filter((item) => item.id !== id));
+  const handleDelete = async(id) => {
+    try {
+      await axios.delete(`http://localhost:8800/api/person/${id}`);
+      reFetch()
+    } catch (err) {
+      console.log(err)
+    }
   };
 
   const columns = [
     { field: "id", headerName: "ID", width: 30 },
     {
-      field: "nombre_persona",
+      field: "name",
       headerName: "Nombre",
       width: 200
     },
     {
-      field: "apellido_persona",
+      field: "lastname",
       headerName: "Apellido",
       width: 200
     },
     {
-      field: "dni_persona",
+      field: "dni",
       headerName: "N°DNI",
       width: 200
     },
@@ -41,7 +45,7 @@ function PersonList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/user/" + params.row.id}>
+            <Link to={"/person/" + params.row.id}>
               <button className="userListEdit">Editar</button>
             </Link>
             <DeleteOutline
@@ -58,7 +62,7 @@ function PersonList() {
     <div className="userList">
       <div className="userBrand">
         <p>Nueva persona</p>
-        <Link to='/newUser'>Crear</Link>
+        <Link to='/newPerson'>Crear</Link>
       </div>
       {
         loading ? (

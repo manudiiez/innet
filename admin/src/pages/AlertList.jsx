@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import useFetch from '../hooks/useFetch';
 
 const style = {
     position: 'absolute',
@@ -23,44 +24,64 @@ const style = {
 
 
 function AlertList() {
-    const [data, setData] = useState(productRows);
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleDelete = (id) => {
-        setData(data.filter((item) => item.id !== id));
+        // setData(data.filter((item) => item.id !== id));
+    };
+    const getDate = (data) => {
+        const date = new Date(data)
+        return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} a las ${date.getHours()}:${date.getMinutes()}`
     };
 
+    const { data, loading, reFetch } = useFetch(`/alert`);
+
+
     const columns = [
-        { field: "id", headerName: "ID", width: 30 },
+        { field: "id", headerName: "ID", width: 70 },
         {
-            field: "name",
-            headerName: "Alerta",
+            field: "fullname",
+            headerName: "Emitida por",
             width: 200
         },
         {
-            field: "status",
-            headerName: "Estado",
+            field: "origin",
+            headerName: "Origen",
             width: 100,
         },
         {
-            field: "action",
-            headerName: "Action",
-            width: 150,
+            field: "startdate",
+            headerName: "Fecha de emisión",
+            width: 200,
             renderCell: (params) => {
                 return (
                     <>
-                        <button className="productListEdit" onClick={handleOpen}>Editar</button>
-                        <DeleteOutline
-                            className="productListDelete"
-                            onClick={() => handleDelete(params.row.id)}
-                        />
+                        {getDate(params.row.startdate)}
                     </>
                 );
             },
         },
+        {
+            field: "state",
+            headerName: "Estado",
+            width: 150,
+            renderCell: (params) => {
+                return (
+                    <>
+                        {
+                            params.row.state == 'sin atender' ? (
+                                <Button variant="outlined" onClick={handleOpen} style={{ color: "red", borderColor: "red" }}>{params.row.state}</Button>
+                            ) : (
+                                <Button variant="outlined">{params.row.state}</Button>
+                            )
+                        }
+                    </>
+                );
+            },
+        }
     ];
 
     return (
@@ -74,17 +95,11 @@ function AlertList() {
             >
                 <Box sx={style}>
                     <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-                        Editar el estado de la Alerta
+                        Cambiar estado
                     </Typography>
                     <div>
-                        <div>
-                            <input type="radio" name="gender" id="male" value="male" />
-                            <label for="male">Sin atender</label>
-                        </div>
-                        <div>
-                            <input type="radio" name="gender" id="male" value="male" />
-                            <label for="male">Resuelta</label>
-                        </div>
+                        <Button variant="outlined" onClick={handleOpen} style={{ color: "red", borderColor: "red", marginRight: "5px" }}>Sin atender</Button>
+                        <Button variant="outlined" onClick={handleOpen}>Resuelta</Button>
                     </div>
                 </Box>
             </Modal>

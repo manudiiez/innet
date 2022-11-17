@@ -13,7 +13,15 @@ const FileSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-        pressure: {
+        pressure: { 
+            type: String,
+            required: true,
+        },
+        areaName: {
+            type: String,
+            required: true,
+        },
+        manager: {
             type: String,
             required: true,
         },
@@ -22,7 +30,7 @@ const FileSchema = new mongoose.Schema(
             default: 'ninguna',
         },
         observations: {
-            type: Text
+            type: String
         },
 
     },

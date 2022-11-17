@@ -12,7 +12,7 @@ const AlertSchema = new mongoose.Schema(
         origin: {
             type: String,
             required: true,
-        },
+        }, 
         state: {
             type: String,
             default: 'sin atender'

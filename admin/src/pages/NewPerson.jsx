@@ -1,47 +1,47 @@
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../css/page/newPerson.css'
 
 
 function NewPerson() {
+
+  const [person, setPerson] = useState({})
+  const navigate = useNavigate()
+
+  const handleChange = (e) => {
+    setPerson((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const handleClick = async(e) => {
+    e.preventDefault()
+    console.log(person);
+    if (person.name.length !== 0 || person.lastname.length !== 0 || person.dni.length !== 0) {
+      try {
+        await axios.post(`http://localhost:8800/api/person`, person);
+        navigate('/persons')
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  };
+
   return (
     <div className="newUser">
-      <h1 className="newUserTitle">Persona nueva</h1>
-      <form className="newUserForm">
+      <h1 className="newUserTitle">Persona nueva</h1> 
+      <form className="newUserForm" onSubmit={handleClick}>
         <div className="newUserItem">
-          <label>Nombre y apellido</label>
-          <input type="text" placeholder="Manolito diez" />
+          <label>Nombre</label>
+          <input type="text" name='name' onChange={handleChange} />
         </div>
         <div className="newUserItem">
-          <label>Email</label>
-          <input type="email" placeholder="john@gmail.com" />
+          <label>Apellido</label>
+          <input type="text"  name='lastname' onChange={handleChange}/>
         </div>
         <div className="newUserItem">
-          <label>Contraseña</label>
-          <input type="password" placeholder="mayor a 6" />
+          <label>Dni</label>
+          <input type="text" name='dni' onChange={handleChange} />
         </div>
-        <div className="newUserItem">
-          <label>Phone</label>
-          <input type="text" placeholder="+1 123 456 78" />
-        </div>
-        <div className="newUserItem">
-          <label>DNI</label>
-          <input type="text" placeholder="441378913" />
-        </div>
-        <div className="newUserItem">
-          <label>Direccion</label>
-          <input type="text" placeholder="Palmares, Turin 9898" />
-        </div>
-        <div className="newUserItem">
-          <label>Categoria</label>
-          <div className="newUserGender">
-            <input type="radio" name="gender" id="male" value="male" />
-            <label for="male">Administrador</label>
-            <input type="radio" name="gender" id="female" value="female" />
-            <label for="female">Doctor</label>
-            <input type="radio" name="gender" id="other" value="other" />
-            <label for="other">Medico</label>
-          </div>
-        </div>
-        <button className="newUserButton">Create</button>
+        <button type='submit' className="newUserButton">Crear</button>
       </form>
     </div>
   );

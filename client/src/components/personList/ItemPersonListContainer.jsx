@@ -6,7 +6,7 @@ import ItemPersonList from './ItemPersonList';
 
 const ItemPersonListContainer = () => {
 
-    const { data, loading, reFetch } = useFetch(`/ver_personas`);
+    const { data, loading, reFetch } = useFetch(`/person`);
     console.log(data)
 
     return (

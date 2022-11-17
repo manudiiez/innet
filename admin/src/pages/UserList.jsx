@@ -9,7 +9,7 @@ import useFetch from '../hooks/useFetch'
 
 
 function UserList() {
-  const { data, loading, reFetch } = useFetch(`/ver_usuarios`);
+  const { data, loading, reFetch } = useFetch(`/user`);
   const [data2, setData2] = useState([])
 
   const handleDelete = (id) => {
@@ -19,14 +19,14 @@ function UserList() {
   const columns = [
     { field: "id", headerName: "ID", width: 30 },
     {
-      field: "nombre_usuario",
+      field: "username",
       headerName: "Nombre de usuario",
       width: 200
     },
     { field: "rol", headerName: "Rol", width: 80 },
-    { field: "id_persona_fk", headerName: "Id persona", width: 90 },
-    { field: "id_area_fk", headerName: "Id Area", width: 90 },
-    { field: "contraseña", headerName: "Contraseña", width: 200 },
+    { field: "idPersona", headerName: "Id persona", width: 90 },
+    { field: "idArea", headerName: "Id Area", width: 90 },
+    { field: "email", headerName: "Email", width: 200 },
     {
       field: "action",
       headerName: "Action",

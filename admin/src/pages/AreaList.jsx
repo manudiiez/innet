@@ -8,7 +8,7 @@ import useFetch from '../hooks/useFetch'
 
 
 function AreaList() {
-    const { data, loading, reFetch } = useFetch(`/ver_areas`);
+    const { data, loading, reFetch } = useFetch(`/area`);
 
 
     const handleDelete = (id) => {
@@ -18,7 +18,7 @@ function AreaList() {
     const columns = [
         { field: "id", headerName: "ID", width: 30 },
         {
-            field: "nombre",
+            field: "name",
             headerName: "Nombre del area",
             width: 200
         },

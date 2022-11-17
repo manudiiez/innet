@@ -6,12 +6,15 @@ const PersonSchema = new mongoose.Schema(
       required: true,
     },
     lastname: {
-      type: String,
+      type: String, 
       required: true,
     },
     dni: {
       type: Number,
       required: true,
+    },
+    idUser: { 
+      type: String,
     },
     files: {
       type: [String],

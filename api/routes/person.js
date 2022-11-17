@@ -4,7 +4,7 @@ import { createPerson, deletePerson, getAllPersons, getPerson, updatePerson } fr
 const router = express.Router()
 
 // CREATE
-router.post('/create', createPerson)
+router.post('/', createPerson)
 // UPDATE
 router.put('/:id', updatePerson)
 // DELETE

@@ -21,8 +21,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/persons" element={<PersonList />} />
-            <Route path="/user/:userId" element={<Person />} />
-            <Route path="/newUser" element={<NewPerson />} />
+            <Route path="/person/:id" element={<Person />} />
+            <Route path="/newPerson" element={<NewPerson />} />
             <Route path="/areas" element={<AreaList />} />
             <Route path="/area/:areaId" element={<Area />} />
             <Route path="/newArea" element={<NewArea />} />
