@@ -13,6 +13,7 @@ import ItemSignInContainer from "./pages/credentials/ItemSignInContainer";
 import File from "./pages/file/File";
 import Home from "./pages/home/Home";
 import Patiente from "./pages/patient/Patiente";
+import ViewFile from "./pages/viewFile/ViewFile";
 
 
 const ProtectedRoute = ({ children }) => {
@@ -49,6 +50,11 @@ function App() {
           <Route path="/file/:id" element={
             <ProtectedPriorityRoute>
               <File />
+            </ProtectedPriorityRoute>
+          } />
+          <Route path="/fileview/:id" element={
+            <ProtectedPriorityRoute>
+              <ViewFile />
             </ProtectedPriorityRoute>
           } />
           <Route path="/patient" element={

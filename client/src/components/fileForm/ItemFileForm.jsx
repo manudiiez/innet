@@ -16,7 +16,11 @@ const ItemFileForm = () => {
                     </div>
                     <div className='input-container--multi'>
                         <div>
-                            <label>Tipo de sangre</label>
+                            <label>Grupo sanguineo</label>
+                            <input type="text" />
+                        </div>
+                        <div>
+                            <label>Sexo</label>
                             <input type="text" />
                         </div>
                         <div>
@@ -31,6 +35,10 @@ const ItemFileForm = () => {
                     <div className='input-container'>
                         <label>Enfermedades</label>
                         <input type="text" />
+                    </div>
+                    <div className='input-container'>
+                        <label>Observaciones</label>
+                        <textarea rows="10"></textarea>
                     </div>
                     <button>Crear</button>
                 </form>
@@ -90,11 +98,18 @@ const Container = styled.div`
                     padding: 14px;
                     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
                 }
+                
+                textarea{
+                    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 14px;
+                }
 
             }
             .input-container--multi{
                 display: grid;
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(4, 1fr);
                 gap: 14px;
                 width: 100%;
                 margin-bottom: 24px;

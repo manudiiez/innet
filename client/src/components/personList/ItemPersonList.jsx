@@ -30,10 +30,9 @@ const columns = [
         renderCell: (params) => {
             return (
                 <>
-                    <Link to={"/file/" + params.row.id} className='userListDelete'>
+                    <Link to={"/fileview/" + params.row.id} className='userListDelete'>
                         Ver
                         <VisibilityIcon />
-
                     </Link>
                     <Link to={"/file/" + params.row.id} className='userListDelete'>
                         Crear
