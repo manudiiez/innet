@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components'
 import ItemNavbarContainer from '../../components/navbar/ItemNavbarContainer';
@@ -9,11 +9,21 @@ import SearchIcon from '@mui/icons-material/Search';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
+import ModalContainer from './ModalContainer';
 
 const ViewFile = () => {
 
     const { id } = useParams()
     const { data, loading, reFetch } = useFetch(`/file/person/${id}`);
+
+    const [fileId, setFileId] = useState('');
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = (idFile) => {
+        setOpen(true)
+        setFileId(idFile)
+    };
+    const handleClose = () => setOpen(false);
 
 
     const columns = [
@@ -28,7 +38,7 @@ const ViewFile = () => {
                 return (
                     <>
                         <Link to={"/fileview/" + id} className='userListDelete'>
-                            <Button variant="outlined">
+                            <Button variant="outlined" onClick={() => handleOpen(params.row.id)}>
                                 Ver
                                 <VisibilityIcon />
                             </Button>
@@ -57,6 +67,8 @@ const ViewFile = () => {
                     />
                 )
             }
+
+            <ModalContainer open={open} id={fileId} handleOpen={handleOpen} handleClose={handleClose} />
         </Container>
     )
 }

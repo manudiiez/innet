@@ -1,8 +1,9 @@
 import File from '../models/File.js'
 import Person from '../models/Person.js'
 import { changeId } from '../utils/utils.js'
-
-
+import { degrees, PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import axios from 'axios'
+import fs from 'fs'
 // CREATE
 export const createFile = async (req, res, next) => {
     const newFile = new File(req.body)
@@ -85,14 +86,32 @@ export const getFilesPerson = async (req, res, next) => {
     }
 }
 
-export const getLabModules = async (req, res, next) => {
-    const labId = req.params.labid
+export const getFileDowload = async (req, res, next) => {
     try {
-        const lab = await Lab.findById(labId)
-        const list = await Promise.all(lab.modules.map(module => {
-            return Module.findById(module)
-        }))
-        res.status(200).json(list)
+        const file = await File.findById(req.params.id)
+        const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf'
+        // const existingPdfBytes = await axios.get(url)
+        const buffer = await fs.readFileSync('./ficha.pdf');
+        // const buffer  = JSON.parse(await fs.promises.readFile('./ficha.pdf', 'utf-8'))
+        const pdfDoc = await PDFDocument.load(buffer)
+        const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+        const pages = pdfDoc.getPages()
+        const firstPage = pages[0]
+        console.log(firstPage);
+        const { width, height } = firstPage.getSize()
+        firstPage.drawText(file.fullname, {
+          x: 5,
+          y: height / 2 + 300,
+          size: 50,
+          font: helveticaFont,
+          color: rgb(0.95, 0.1, 0.1),
+          rotate: degrees(-45),
+        })
+
+        const pdfBytes = await pdfDoc.save()
+        
+
+        res.status(200).download(pdfBytes)
     } catch (error) {
         next(error)
     }

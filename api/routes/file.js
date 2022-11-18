@@ -1,5 +1,5 @@
 import express from 'express'
-import { createFile, deleteFile, getAllFiles, getFile, getFilesPerson, updateFile } from '../controllers/File.js'
+import { createFile, deleteFile, getAllFiles, getFile, getFileDowload, getFilesPerson, updateFile } from '../controllers/File.js'
 
 const router = express.Router()
 
@@ -14,6 +14,7 @@ router.get('/:id', getFile)
 // GET ALL
 router.get('/', getAllFiles)
 router.get('/person/:id', getFilesPerson)
+router.get('/file/:id', getFileDowload)
 
 
 export default router 
