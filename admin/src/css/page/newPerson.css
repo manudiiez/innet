@@ -5,10 +5,11 @@
 .newUserForm {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .newUserItem {
-  width: 400px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin-top: 10px;

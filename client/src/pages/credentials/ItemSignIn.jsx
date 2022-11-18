@@ -1,8 +1,6 @@
 import React from 'react'
 /* ---------------------------- STYLED-COMPONENTS --------------------------- */
 import styled from 'styled-components'
-/* ----------------------------- REACT-OUTER-DOM ---------------------------- */
-import { Link } from 'react-router-dom'
 
 const ItemSignIn = ({ handleChange, handleClick, loading,error }) => {
   return (

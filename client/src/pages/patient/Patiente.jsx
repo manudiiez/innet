@@ -1,91 +1,131 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-
+import { useToast } from '../../context/ToastContext'
 import Swal from 'sweetalert2'
+import axios from 'axios'
+import {useAuth} from '../../context/AuthContext'
 
-const handleClick = () => {
-    Swal.fire({
-        title: 'Pedir ayuda?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'No',
-        confirmButtonText: 'Si!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire({
-                title: 'Tipo de ayuda',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Normal',
-                cancelButtonText: 'Emergencia',
-                cancelButtonColor: '#d33',
-
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: 'Ubicacion actual',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Baño',
-                        cancelButtonText: 'Habitacion',
-                        cancelButtonColor: '#sss',
-
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                title: 'Alerta normal en el baño emitida',
-                                icon: 'success',
-                            })
-                        } else if (
-                            /* Read more about handling dismissals below */
-                            result.dismiss === Swal.DismissReason.cancel
-                        ) {
-                            Swal.fire({
-                                title: 'Alerta normal en la habitacion emitida',
-                                icon: 'success',
-                            })
-                        }
-                    })
-                } else if (
-                    /* Read more about handling dismissals below */
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    Swal.fire({
-                        title: 'Ubicacion actual',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Baño',
-                        cancelButtonText: 'Habitacion',
-                        cancelButtonColor: '#sss',
-
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                title: 'Alerta urgente en el baño emitida',
-                                icon: 'success',
-                            })
-                        } else if (
-                            /* Read more about handling dismissals below */
-                            result.dismiss === Swal.DismissReason.cancel
-                        ) {
-                            Swal.fire({
-                                title: 'Alerta urgente en la habitacion emitida',
-                                icon: 'success',
-                            })
-                        }
-                    })
-                }
-            })
-        }
-    })
-}
 
 const Patiente = () => {
+
+    const {user} = useAuth()
+    console.log(user);
+    const { createAlert } = useToast()
+    // const [alert, setAlert] = useState({});
+
+    const handleSubmit = async (type, origin) => {
+        try {
+            // setAlert((prev) => ({ ...prev, ['type']: type }))
+            // setAlert((prev) => ({ ...prev, ['origin']: origin }))
+            // setAlert((prev) => ({ ...prev, ['fullname']: user.fullname }))
+            // setAlert((prev) => ({ ...prev, ['startdate']: new Date() }))
+            const alert = {
+                type: type,
+                origin: origin,
+                fullname: user.username,
+                startdate: new Date()
+            }
+            const res = await axios.post(`http://localhost:8800/api/alert/`, alert);
+            console.log(res);
+            
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
+    const handleClick = () => {
+        Swal.fire({
+            title: 'Pedir ayuda?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'No',
+            confirmButtonText: 'Si!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Tipo de ayuda',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Normal',
+                    cancelButtonText: 'Emergencia',
+                    cancelButtonColor: '#d33',
+
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Ubicacion actual',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Baño',
+                            cancelButtonText: 'Cama',
+                            cancelButtonColor: '#sss',
+
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Swal.fire({
+                                    title: 'Alerta normal en el baño emitida',
+                                    icon: 'success',
+                                })
+                                createAlert('Necesitan ayuda en el baño')
+                                handleSubmit('normal', 'baño')
+
+                            } else if (
+                                /* Read more about handling dismissals below */
+                                result.dismiss === Swal.DismissReason.cancel
+                            ) {
+                                Swal.fire({
+                                    title: 'Alerta normal en la cama emitida',
+                                    icon: 'success',
+                                })
+                                createAlert('Necesitan ayuda en la cama')
+                                handleSubmit('normal', 'cama')
+                            }
+                        })
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        Swal.fire({
+                            title: 'Ubicacion actual',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Baño',
+                            cancelButtonText: 'Cama',
+                            cancelButtonColor: '#sss',
+
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Swal.fire({
+                                    title: 'Alerta urgente en el baño emitida',
+                                    icon: 'success',
+                                })
+                                createAlert('Necetitan ayuda urgente en la baño')
+                                handleSubmit('urgente', 'baño')
+
+                            } else if (
+                                /* Read more about handling dismissals below */
+                                result.dismiss === Swal.DismissReason.cancel
+                            ) {
+                                Swal.fire({
+                                    title: 'Alerta urgente en la cama emitida',
+                                    icon: 'success',
+                                })
+                                createAlert('Necetitan ayuda urgente en la cama')
+                                handleSubmit('urgente', 'cama')
+
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
     return (
         <Container>
             <button onClick={handleClick}>Ayuda</button>

@@ -30,7 +30,7 @@ export const registerUser = async (req, res, next) => {
         const { password, isAdmin, ...otherDetails } = user._doc
 
         try {
-            await Person.findByIdAndUpdate(req.body.idPersona, {idUser: user._id})
+            await Person.findByIdAndUpdate(req.body.idPersona, { idUser: user._id })
         } catch (error) {
             next(error)
         }
@@ -51,19 +51,19 @@ export const loginUser = async (req, res, next) => {
 
         if (!isPasswordCorrect) return next(createError(404, "Nombre de usuario o contraseña incorrectos"))
 
-        const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT)
+        const token = jwt.sign({ id: user._id, isAdmin: user.rol }, 'secret')
 
-        const { password, isAdmin, ...otherDetails } = user._doc
+        const { password, ...otherDetails } = user._doc
 
         res.cookie('access_token', token, {
             httpOnly: true
         })
         res.status(200)
-            .json({ details: { ...otherDetails }, isAdmin })
+            .json(otherDetails)
 
     } catch (error) {
         next(error)
-    } next(error)
+    }
 }
 
 
@@ -84,8 +84,13 @@ export const updateUser = async (req, res, next) => {
 // DELETE
 export const deleteUser = async (req, res, next) => {
     try {
-        await User.findByIdAndDelete(req.params.id)
+        const user = await User.findByIdAndDelete(req.params.id)
         res.status(200).json('Hotel has been deleted')
+        try {
+            await Person.findByIdAndDelete(user._id)
+        } catch (error) {
+            next(error)
+        }
     } catch (error) {
         next(error)
     }
@@ -104,6 +109,26 @@ export const getAllUsers = async (req, res, next) => {
     try {
         const users = await User.find()
         res.status(200).json(changeId(users))
+    } catch (error) {
+        next(error)
+    }
+}
+
+const setDoctorData = (userData, personData) => {
+    const newObj = userData
+    userData['idPersona'] = `${personData.name} ${personData.lastname} | ${personData.dni} | ${userData.rol}`
+    userData['id'] = personData._id
+    return newObj
+}
+// GET ALL
+export const getAllDoctors = async (req, res, next) => {
+    try {
+        const users = await User.find({ rol: 'medico' })
+        const list = await Promise.all(users.map(async(userData) => {
+            const personObj = await Person.findById(userData.idPersona)
+            return setDoctorData(userData, personObj)
+        }))
+        res.status(200).json(changeId(list))
     } catch (error) {
         next(error)
     }

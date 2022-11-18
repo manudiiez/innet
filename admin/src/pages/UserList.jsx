@@ -6,14 +6,19 @@ import { userRows } from "../dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import useFetch from '../hooks/useFetch'
+import axios from 'axios';
 
 
 function UserList() {
   const { data, loading, reFetch } = useFetch(`/user`);
-  const [data2, setData2] = useState([])
 
-  const handleDelete = (id) => {
-    setData2(data2.filter((item) => item.id !== id));
+  const handleDelete = async(id) => {
+    try {
+      await axios.delete(`http://localhost:8800/api/user/${id}`);
+      reFetch()
+    } catch (err) {
+      console.log(err)
+    }
   };
 
   const columns = [

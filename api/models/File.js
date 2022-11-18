@@ -9,6 +9,10 @@ const FileSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+        sex: {
+            type: String,
+            required: true,
+        },
         height: {
             type: Number,
             required: true,
@@ -25,9 +29,17 @@ const FileSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        manager: {
+            type: String,
+            required: true,
+        },
         diseases: {
             type: String,
             default: 'ninguna',
+        },
+        blood: {
+            type: String,
+            required: true,
         },
         observations: {
             type: String

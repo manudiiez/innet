@@ -10,11 +10,6 @@ import useFetch from '../hooks/useFetch'
 function AreaList() {
     const { data, loading, reFetch } = useFetch(`/area`);
 
-
-    const handleDelete = (id) => {
-        // setData2(data2.filter((item) => item.id !== id));
-    };
-
     const columns = [
         { field: "id", headerName: "ID", width: 30 },
         {
@@ -32,10 +27,6 @@ function AreaList() {
                         <Link to={"/area/" + params.row.id}>
                             <button className="productListEdit">Editar</button>
                         </Link>
-                        <DeleteOutline
-                            className="productListDelete"
-                            onClick={() => handleDelete(params.row.id)}
-                        />
                     </>
                 );
             },

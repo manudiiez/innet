@@ -1,15 +1,62 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components'
 import ItemNavbarContainer from '../../components/navbar/ItemNavbarContainer';
+import useFetch from '../../hooks/useFetch';
+import { DataGrid } from '@mui/x-data-grid';
+import FileOpenIcon from '@mui/icons-material/FileOpen';
+import SearchIcon from '@mui/icons-material/Search';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
+
 const ViewFile = () => {
 
-    const handleClick = () => {
-    }
+    const { id } = useParams()
+    const { data, loading, reFetch } = useFetch(`/file/person/${id}`);
+
+
+    const columns = [
+        { field: 'id', headerName: 'ID', width: 100 },
+        { field: 'fullname', headerName: 'Nombre completo', width: 200 },
+        { field: 'manager', headerName: 'Medico a cargo', width: 200 },
+        {
+            field: "action",
+            headerName: "Archivo",
+            width: 200,
+            renderCell: (params) => {
+                return (
+                    <>
+                        <Link to={"/fileview/" + id} className='userListDelete'>
+                            <Button variant="outlined">
+                                Ver
+                                <VisibilityIcon />
+                            </Button>
+                        </Link>
+
+                    </>
+                );
+            },
+        },
+    ];
 
     return (
         <Container>
             <ItemNavbarContainer />
-            <button onClick={handleClick}>Crear</button>
+            {
+                loading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <DataGrid
+                        rows={data}
+                        disableSelectionOnClick
+                        columns={columns}
+                        pageSize={8}
+                        checkboxSelection
+                        className='datagrid'
+                    />
+                )
+            }
         </Container>
     )
 }
@@ -17,7 +64,7 @@ const ViewFile = () => {
 export default ViewFile
 
 const Container = styled.div`
-    
+    height: 400px;
 
 
 `

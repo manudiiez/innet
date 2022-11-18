@@ -1,0 +1,107 @@
+.login-container {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    background-color: #F3F1FD;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+.content{
+    width: 100%;
+    max-width: 768px;
+
+}
+
+.login-container h1 {
+
+    color: #6150FF;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.login-container .container-form {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 5rem;
+}
+
+.login-container .container-form .header {
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-container .container-form .header div {
+    width: 100%;
+    border-bottom: 1px dashed #6150FF;
+}
+
+.login-container .container-form .header p {
+    color: #18142B;
+    width: 100%;
+    text-align: center;
+    padding: 0 1rem;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.login-container .container-form form {
+    margin-top: 1rem;
+}
+
+.login-container .container-form form div {
+    display: flex;
+    flex-direction: column;
+    border-radius: 2px;
+    margin-top: 1rem;
+}
+
+.login-container .container-form form div label {
+    color: #18142B;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.login-container .container-form form div label span {
+    color: #6150FF;
+}
+
+.login-container .container-form form div input {
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid #9795A0;
+    background-color: transparent;
+    color: #9795A0;
+    margin-top: 7px;
+    border-radius: 10px
+}
+
+
+.login-container .container-form form button {
+    width: 100%;
+    padding: 1rem 0;
+    color: #fff;
+    background: #6150FF;
+    border: none;
+    margin-top: 2rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-container .container-form form button span {
+    position: relative;
+    z-index: 10;
+    font-weight: 600;
+}
+

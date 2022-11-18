@@ -1,6 +1,5 @@
 import express from 'express'
-import { deleteUser, getAllUsers, getUser, updateUser } from '../controllers/User.js'
-import { loginUser, registerUser } from '../controllers/user.js'
+import { deleteUser, getAllDoctors, getAllUsers, getUser, loginUser, registerUser, updateUser } from '../controllers/User.js'
 
 const router = express.Router()
 
@@ -13,9 +12,11 @@ router.put('/:id', updateUser)
 // DELETE
 router.delete('/:id', deleteUser)
 // GET
-router.get('/', getAllUsers)
-// GET ALL
 router.get('/:id', getUser)
+// GET ALL
+router.get('/', getAllUsers)
+router.get('/get/medico', getAllDoctors)
+
 
 
 export default router

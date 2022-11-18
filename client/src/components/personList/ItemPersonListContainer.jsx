@@ -7,8 +7,7 @@ import ItemPersonList from './ItemPersonList';
 const ItemPersonListContainer = () => {
 
     const { data, loading, reFetch } = useFetch(`/person`);
-    console.log(data)
-
+    
     return (
         <ItemPersonList data={data} loading={loading} reFetch={reFetch} />
     )

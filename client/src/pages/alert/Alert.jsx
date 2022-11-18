@@ -7,6 +7,7 @@ const Alert = () => {
     <>
         <ItemNavbarContainer/>
         <Patiente/>
+        
     </>
   )
 }

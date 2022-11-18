@@ -70,3 +70,30 @@ export const getAllFiles = async (req, res, next) => {
         next(error)
     }
 }
+// GET ALL
+export const getFilesPerson = async (req, res, next) => {
+    const personId = req.params.id
+
+    try {
+        const person = await Person.findById(personId)
+        const list = await Promise.all(person.files.map(fileId => {
+            return File.findById(fileId)
+        }))
+        res.status(200).json(changeId(list))
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getLabModules = async (req, res, next) => {
+    const labId = req.params.labid
+    try {
+        const lab = await Lab.findById(labId)
+        const list = await Promise.all(lab.modules.map(module => {
+            return Module.findById(module)
+        }))
+        res.status(200).json(list)
+    } catch (error) {
+        next(error)
+    }
+}

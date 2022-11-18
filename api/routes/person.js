@@ -10,9 +10,9 @@ router.put('/:id', updatePerson)
 // DELETE
 router.delete('/:id', deletePerson)
 // GET
-router.get('/', getAllPersons)
-// GET ALL
 router.get('/:id', getPerson)
+// GET ALL
+router.get('/', getAllPersons)
 
 
 export default router

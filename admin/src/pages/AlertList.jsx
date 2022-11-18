@@ -9,6 +9,7 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import useFetch from '../hooks/useFetch';
+import axios from 'axios'
 
 const style = {
     position: 'absolute',
@@ -25,19 +26,38 @@ const style = {
 
 function AlertList() {
     const [open, setOpen] = useState(false);
+    const [id, setId] = useState(null);
 
-    const handleOpen = () => setOpen(true);
+    const { data, loading, reFetch } = useFetch(`/alert`);
+
+    const handleOpen = (id) => {
+        setOpen(true);
+        setId(id)
+        console.log(id);
+    }
     const handleClose = () => setOpen(false);
 
-    const handleDelete = (id) => {
-        // setData(data.filter((item) => item.id !== id));
-    };
     const getDate = (data) => {
         const date = new Date(data)
         return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} a las ${date.getHours()}:${date.getMinutes()}`
     };
 
-    const { data, loading, reFetch } = useFetch(`/alert`);
+    const changueState = async (state) => {
+        try {
+            const newObj = {
+                state: state,
+                enddate: new Date()
+            }
+            await axios.put(`http://localhost:8800/api/alert/${id}`, newObj);
+            reFetch()
+            handleClose()
+        } catch (error) {
+            console.log(error)
+
+        }
+    }
+
+
 
 
     const columns = [
@@ -73,7 +93,7 @@ function AlertList() {
                     <>
                         {
                             params.row.state == 'sin atender' ? (
-                                <Button variant="outlined" onClick={handleOpen} style={{ color: "red", borderColor: "red" }}>{params.row.state}</Button>
+                                <Button variant="outlined" onClick={() => { handleOpen(params.row.id) }} style={{ color: "red", borderColor: "red" }}>{params.row.state}</Button>
                             ) : (
                                 <Button variant="outlined">{params.row.state}</Button>
                             )
@@ -98,8 +118,8 @@ function AlertList() {
                         Cambiar estado
                     </Typography>
                     <div>
-                        <Button variant="outlined" onClick={handleOpen} style={{ color: "red", borderColor: "red", marginRight: "5px" }}>Sin atender</Button>
-                        <Button variant="outlined" onClick={handleOpen}>Resuelta</Button>
+                        <Button variant="outlined" onClick={() => changueState('sin atender')} style={{ color: "red", borderColor: "red", marginRight: "5px" }}>Sin atender</Button>
+                        <Button variant="outlined" onClick={() => changueState('resuelta')} >Resuelta</Button>
                     </div>
                 </Box>
             </Modal>

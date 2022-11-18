@@ -8,13 +8,18 @@ import userRoute from './routes/user.js'
 import areaRoute from './routes/area.js'
 import fileRoute from './routes/file.js'
 import alertRoute from './routes/alert.js'
+import { Server as SocketServer } from 'socket.io'
+import http from 'http'
+import { dirname, join } from 'path'
+import morgan from 'morgan'
+
 
 
 // MONGODB CONFIG
-const connect = async ( ) => {
+const connect = async () => {
     try {
-        // await mongoose.connect('mongodb+srv://manudiiez:manudiiez@cluster0.walamvu.mongodb.net/inet-db?retryWrites=true&w=majority');
-        await mongoose.connect('mongodb://localhost:27017/misalud');
+        await mongoose.connect('mongodb+srv://manudiiez:manudiiez@cluster0.walamvu.mongodb.net/inet-db?retryWrites=true&w=majority');
+        // await mongoose.connect('mongodb://localhost:27017/misalud');
         console.log('Connected to mongoDB')
     } catch (error) {
         throw error;
@@ -36,6 +41,8 @@ dotenv.config()
 app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
+const server = http.createServer(app)
+
 
 app.use('/api/person', personRoute);
 app.use('/api/user', userRoute);
@@ -43,8 +50,30 @@ app.use('/api/area', areaRoute);
 app.use('/api/file', fileRoute);
 app.use('/api/alert', alertRoute);
 
+const io = new SocketServer(server, {
+    cors: {
+        origin: 'http://localhost:3000'
+    }
+})
 
-app.listen(8800, () => {
+io.on('connect', (socket) => {
+    console.log(socket.id, 'connected')
+
+    socket.on('message', (data) => {
+        console.log(data);
+        socket.broadcast.emit('message', {
+            body: data,
+            from: socket.id
+        })
+    })
+    socket.on('alert', (data) => {
+        console.log(data);
+        socket.broadcast.emit('alert', data)
+    })
+})
+
+
+server.listen(8800, () => {
     connect()
     console.log('Connected to backend!')
 })

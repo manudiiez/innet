@@ -26,8 +26,8 @@ const ItemSignInContainer = () => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post("/auth/login", credentials);
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
+      const res = await axios.post("http://localhost:8800/api/user/login", credentials);
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
       navigate("/");
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
