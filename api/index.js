@@ -18,7 +18,8 @@ import morgan from 'morgan'
 // MONGODB CONFIG
 const connect = async () => {
     try {
-        await mongoose.connect('mongodb+srv://manudiiez:manudiiez@cluster0.walamvu.mongodb.net/inet-db?retryWrites=true&w=majority');
+        // await mongoose.connect('mongodb+srv://manudiiez:manudiiez@cluster0.walamvu.mongodb.net/inet-db?retryWrites=true&w=majority');
+        await mongoose.connect(process.env.MONGO_URL);
         // await mongoose.connect('mongodb://localhost:27017/misalud');
         console.log('Connected to mongoDB')
     } catch (error) {
@@ -73,7 +74,7 @@ io.on('connect', (socket) => {
 })
 
 
-server.listen(8800, () => {
+server.listen(process.env.PORT || 8800, () => {
     connect()
     console.log('Connected to backend!')
 })
